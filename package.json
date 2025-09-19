@@ -1,0 +1,24 @@
+{
+  "name": "wifi-project-kathir",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kathir-Subramaniam/wifi-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kathir-Subramaniam/wifi-project/issues"
+  },
+  "homepage": "https://github.com/Kathir-Subramaniam/wifi-project#readme",
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "prisma": "^6.16.2"
+  }
+}
