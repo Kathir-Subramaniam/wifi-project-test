@@ -1,0 +1,592 @@
+/* Global reset */
+html, body, #root {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;       /* removes the white border */
+  padding: 0;
+  background: #0B0F16; /* match your app background */
+}
+
+
+/* Base layout */
+.ft-root {
+  min-height: 100vh;
+  background: #0B0F16; /* deep navy */
+  color: #E6EDF3;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 24px;
+}
+
+/* App bar */
+.ft-appbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0F141C;
+  border: 1px solid #1F2937;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+.ft-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ft-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #0D324D, #0A2232);
+  display: grid;
+  place-items: center;
+}
+.ft-brand-text {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.ft-live-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #1F2937;
+  background: #0A1220;
+  color: #CDE8FF;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.ft-dot {
+  width: 8px;
+  height: 8px;
+  background: #22C55E;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22C55E;
+}
+
+/* Stats cards */
+.ft-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+.ft-stat-card {
+  background: #0F141C;
+  border: 1px solid #1F2937;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.ft-stat-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #9ADCF9;
+  background: #0E1B26;
+}
+.ft-stat-meta {
+  display: flex;
+  flex-direction: column;
+}
+.ft-stat-label {
+  font-size: 12px;
+  color: #8CA0B3;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.ft-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Content grid */
+.ft-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px; /* map & legend */
+  gap: 24px;
+}
+
+/* Map panel */
+.ft-panel {
+  background: #0F141C;
+  border: 1px solid #1F2937;
+  border-radius: 12px;
+  padding: 18px;
+}
+.ft-panel-header {
+  margin-bottom: 10px;
+}
+.ft-panel-title {
+  font-weight: 700;
+  font-size: 16px;
+}
+.ft-panel-sub {
+  font-size: 12px;
+  color: #8CA0B3;
+}
+.ft-map-frame {
+  background: #0A1620;
+  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid #223042;
+  /* overscroll-behavior: contain; */
+  /* touch-action: none; */
+}
+.ft-map-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  overflow: visible;
+}
+
+/* Markers (hover glow) */
+.ft-marker circle {
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.ft-marker:hover circle:last-child {
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.25));
+  transform: scale(1.08);
+}
+
+/* Legend panel */
+.ft-legend-panel {
+  background: #0F141C;
+  border: 1px solid #1F2937;
+  border-radius: 12px;
+  padding: 16px;
+}
+.ft-legend-title {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.ft-legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ft-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ft-dot-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.ft-legend-label {
+  font-weight: 600;
+}
+.ft-legend-sub {
+  font-size: 12px;
+  color: #8CA0B3;
+}
+.ft-legend-divider {
+  height: 1px;
+  background: #1F2937;
+  margin: 10px 0;
+}
+.ft-legend-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.ft-legend-metric {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.ft-metric-label {
+  color: #8CA0B3;
+  font-size: 12px;
+}
+.ft-metric-value {
+  font-weight: 700;
+}
+.map-box {
+  height: 560px;
+}
+/* Floor selector */
+.ft-floor-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ft-floor-label {
+  font-size: 12px;
+  color: #8CA0B3;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.ft-floor-select {
+  padding: 8px 12px;
+  background: #0A1620;
+  border: 1px solid #223042;
+  border-radius: 8px;
+  color: #E6EDF3;
+  font-size: 14px;
+  outline: none;
+}
+
+.ft-floor-select:focus {
+  border-color: #9ADCF9;
+  box-shadow: 0 0 0 3px rgba(154, 220, 249, 0.1);
+}
+
+/* User Menu */
+.ft-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #0E1B26;
+  color: #9ADCF9;
+  font-weight: 700;
+  font-size: 10px;
+}
+
+.ft-user-menu a.ft-user-menu-item,
+.ft-user-menu button.ft-user-menu-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #CDE8FF;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+}
+.ft-user-menu a.ft-user-menu-item:hover,
+.ft-user-menu button.ft-user-menu-item:hover {
+  background: #0A1620;
+}
+.ft-user-menu-item.danger {
+  color: #FCA5A5;
+}
+
+/* Layout helpers */
+.ft-row {
+  display: flex;
+  align-items: center;
+}
+.ft-row.between {
+  justify-content: space-between;
+}
+.ft-row.gap {
+  gap: 8px;
+}
+
+/* Card spacing */
+.ft-card-spaced {
+  padding: 14px;
+}
+
+/* Edit grid */
+.ft-edit-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.ft-edit-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+.ft-actions {
+  display: flex;
+  gap: 8px;
+}
+.ft-title-line {
+  font-weight: 700;
+}
+
+/* Themed textarea for large content */
+.ft-textarea {
+  min-height: 220px;
+  resize: vertical;
+  background: #0A1620;
+  border: 1px solid #223042;
+  border-radius: 10px;
+  color: #E6EDF3;
+  padding: 12px;
+  line-height: 1.35;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* File picker: hide native input, style trigger button */
+.ft-filepicker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.ft-filepicker-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none; /* keep input accessible through button click */
+}
+.ft-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #0E1B26;
+  color: #9ADCF9;
+  font-size: 12px;
+  border: 1px solid #213042;
+  margin-bottom: 12px;
+}
+
+/* Sortbar */
+.ft-sortbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0A1620;
+  border: 1px solid #223042;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.ft-sort-dd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ft-sort-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 8px 12px;
+}
+
+.ft-sort-menu {
+  position: absolute;
+  right: 0;
+  margin-top: 6px;
+  min-width: 240px;
+  background: #0F141C;
+  border: 1px solid #1F2937;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  padding: 6px;
+  z-index: 40;
+}
+
+.ft-sort-section {
+  margin-bottom: 6px;
+}
+
+.ft-sort-divider {
+  height: 1px;
+  background: #1F2937;
+  margin: 6px 8px;
+}
+
+.ft-sort-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  color: #CDE8FF;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ft-sort-item:hover {
+  background: #0A1620;
+}
+
+.ft-sort-item.selected {
+  font-weight: 600;
+}
+
+.ft-sort-check {
+  width: 18px;
+  height: 18px;
+  display: inline-grid;
+  place-items: center;
+  color: #9ADCF9;
+  font-size: 14px;
+}
+
+/* Stacking to ensure dropdowns appear above tabs */
+.ft-sortbar { position: relative; z-index: 20; }
+.ft-sort-dd { position: relative; z-index: 25; }
+.ft-sort-menu { z-index: 9999; }
+
+.auth-tabs { position: relative; z-index: 5; }
+
+.ft-row { display: flex; align-items: center; }
+.ft-row.between { justify-content: space-between; }
+.ft-row.gap { gap: 8px; }
+.ft-card-spaced { padding: 14px; }
+
+.ft-edit-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.ft-edit-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+.ft-actions { display: flex; gap: 8px; }
+.ft-title-line { font-weight: 700; }
+
+.ft-textarea {
+  min-height: 220px;
+  resize: vertical;
+  background: #0A1620;
+  border: 1px solid #223042;
+  border-radius: 10px;
+  color: #E6EDF3;
+  padding: 12px;
+  line-height: 1.35;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* File picker styling */
+.ft-filepicker { position: relative; display: inline-flex; align-items: center; }
+.ft-filepicker-input { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.ft-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 999px;
+  background: #0E1B26; color: #9ADCF9; font-size: 12px; border: 1px solid #213042;
+}
+
+/* User menu styles (reusing existing) */
+.ft-avatar {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #0E1B26; color: #9ADCF9; font-weight: 700; font-size: 10px;
+}
+.ft-user-menu a.ft-user-menu-item,
+.ft-user-menu button.ft-user-menu-item {
+  width: 100%; text-align: left; padding: 10px 10px;
+  border: none; outline: none; background: transparent; color: #CDE8FF;
+  border-radius: 8px; cursor: pointer; display: block; text-decoration: none; font-size: 14px;
+}
+.ft-user-menu a.ft-user-menu-item:hover,
+.ft-user-menu button.ft-user-menu-item:hover { background: #0A1620; }
+.ft-user-menu-item.danger { color: #FCA5A5; }
+
+/* Sort dropdown theming */
+.ft-sortbar {
+  display: flex; align-items: center; gap: 8px;
+  background: #0A1620; border: 1px solid #223042;
+  padding: 8px 10px; border-radius: 10px; margin-bottom: 12px;
+}
+.ft-sort-dd { position: relative; display: inline-flex; align-items: center; }
+.ft-sort-trigger { display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 8px 12px; }
+.ft-sort-menu {
+  position: absolute; right: 0; margin-top: 6px; min-width: 240px;
+  background: #0F141C; border: 1px solid #1F2937; border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35); padding: 6px;
+}
+.ft-sort-section { margin-bottom: 6px; }
+.ft-sort-divider { height: 1px; background: #1F2937; margin: 6px 8px; }
+.ft-sort-item {
+  width: 100%; display: grid; grid-template-columns: 18px 1fr; align-items: center;
+  gap: 6px; padding: 8px 10px; color: #CDE8FF; background: transparent; border: none;
+  border-radius: 8px; text-align: left; cursor: pointer;
+}
+.ft-sort-item:hover { background: #0A1620; }
+.ft-sort-item.selected { font-weight: 600; }
+.ft-sort-check { width: 18px; height: 18px; display: inline-grid; place-items: center; color: #9ADCF9; font-size: 14px; }
+
+/* Auth tabs: make them look/feel like buttons with glow */
+.auth-tabs {
+  display: flex;
+  gap: 8px;
+  background: transparent;
+}
+
+.auth-tab {
+  position: relative;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #223042;
+  background: #0A1620;
+  color: #CDE8FF;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  user-select: none;
+}
+
+.auth-tab:hover {
+  border-color: #9ADCF9;
+  color: #E6EDF3;
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(154, 220, 249, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.auth-tab.active {
+  font-weight: 700;
+  border-color: #9ADCF9;
+  color: #E6EDF3;
+  box-shadow: 0 8px 25px rgba(154, 220, 249, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure tabs don’t sit above dropdown menus */
+.auth-tabs { position: relative; z-index: 5; }
+
+/* Add in FloorDashboard.css or a CSS file that’s imported */
+.ft-multi-select {
+  min-height: 120px;
+  pointer-events: auto;         /* ensure clickable */
+  position: relative;           /* create a stacking context */
+  z-index: 1;                   /* above backgrounds */
+}
+
+/* If your layout uses overlays (menus, dropdowns), ensure they don’t overlap this panel unintentionally */
+.ft-panel, .ft-stat-card {
+  position: relative;
+}
+
+
+/* Responsive */
+
+@media (min-width: 1560px) {
+  .map-box {
+    height: 1000px;
+  }
+}
+@media (max-width: 1024px) {
+  .ft-grid {
+    grid-template-columns: 1fr;
+  }
+  .ft-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .ft-stats-row {
+    grid-template-columns: 1fr;
+  }
+}

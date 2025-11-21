@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+model APs {
+  id   BigInt @id @default(autoincrement())
+  name String @unique @db.VarChar(255)
+  cx   Float
+  cy   Float
+  floorId BigInt
+  floor   Floors @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  client Clients[]
+  @@map("APs")
+}
+model Floors {
+  id     BigInt @id @default(autoincrement())
+  name   String @unique @db.VarChar(255)
+  svgMap String @db.Text
+  buildingId BigInt
+  building   Buildings @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  // If a floor is deleted, all GlobalPermissions referencing this floor should go away
+  globalPermissions GlobalPermissions[]
+  // If a floor is deleted, all APs on that floor should go away
+  aps APs[]
+  @@map("Floors")
+}
+model UserDevices {
+  id  BigInt @id @default(autoincrement())
+  mac String @unique @db.VarChar(255)
+  name    String   @db.VarChar(255)
+  userId BigInt
+  user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("UserDevices")
+}
+model Clients {
+  id        BigInt   @id @default(autoincrement())
+  mac       String   @unique @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  apId BigInt
+  ap   APs    @relation(fields: [apId], references: [id], onDelete: Cascade)
+  @@map("Clients")
+}
+model Users {
+  id          BigInt   @id @default(autoincrement())
+  firebaseUid String   @unique @db.VarChar(255)
+  email       String   @unique @db.VarChar(255)
+  firstName   String   @db.VarChar(255)
+  lastName    String   @db.VarChar(255)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  roleId BigInt
+  role   Roles  @relation(fields: [roleId], references: [id])
+  userDevices UserDevices[]
+  userGroups  UserGroups[]
+  @@map("Users")
+}
+model UserGroups {
+  id BigInt @id @default(autoincrement())
+  userId BigInt
+  user   Users  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  groupId BigInt
+  group   Groups @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  @@map("UserGroups")
+}
+model Groups {
+  id   BigInt @id @default(autoincrement())
+  name String @unique @db.VarChar(255)
+  userGroups        UserGroups[]
+  globalPermissions GlobalPermissions[]
+  @@map("Groups")
+}
+model GlobalPermissions {
+  id BigInt @id @default(autoincrement())
+  // Floor-level grants
+  floorId BigInt
+  floor   Floors @relation(fields: [floorId], references: [id], onDelete: Cascade)
+  // Building-level grants
+  buildingId BigInt
+  building   Buildings @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  // Group-level grants
+  groupId BigInt
+  group   Groups @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  @@map("GlobalPermissions")
+}
+model Buildings {
+  id   BigInt @id @default(autoincrement())
+  name String @db.VarChar(255)
+  // Cascades: deleting a building deletes its floors and GP entries that reference this building
+  floors            Floors[]
+  globalPermissions GlobalPermissions[]
+  @@map("Buildings")
+}
+model Roles {
+  id   BigInt @id @default(autoincrement())
+  name String
+  users Users[]
+  @@map("Roles")
+  }
